@@ -1,0 +1,7 @@
+{
+  "name": "NewsApiGUI",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
