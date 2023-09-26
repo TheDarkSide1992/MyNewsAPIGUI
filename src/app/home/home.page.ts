@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {firstValueFrom} from "rxjs";
 import {Myservice} from "../myservice";
 import {Router} from "@angular/router";
+import {query} from "@angular/animations";
 
 @Component({
   selector: 'app-home',
@@ -15,6 +16,9 @@ import {Router} from "@angular/router";
         <ion-button (click)="router.navigate(['/home/create'])">Create New Article</ion-button>
       </ion-item>
 
+      <ion-input [(ngModel)]="SearchValue">
+        <ion-button (click)="Search()">Search.🪄</ion-button>
+      </ion-input>
 
       <ion-card *ngFor="let feedItem of service.feed" (click)="deleteItem(feedItem)">
         <ion-toolbar>
@@ -28,12 +32,12 @@ import {Router} from "@angular/router";
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  myVaiable = new FormControl('',[Validators.required, Validators.pattern('(?:Bob|Rob|Dob|Lob)')]);
+  myVariable = new FormControl('',[Validators.required, Validators.pattern('(?:Bob|Rob|Dob|Lob)')]);
 
-  url = "http://localhost:5000";
+  SearchValue: string = "";
 
   myFormGroup = new FormGroup({
-    title: this.myVaiable,
+    title: this.myVariable,
 
   })
 
@@ -50,7 +54,6 @@ export class HomePage {
   }
 
   async deleteItem(item: feedItem) {
-    //pretend we're sending a delete request
     console.log("delleting item" + item.articleId);
 
     const url = "http://localhost:5000/api/articles/"+item.articleId;
@@ -71,6 +74,21 @@ export class HomePage {
     } catch (e) {
       console.log(e)
     }
+  }
+
+  async Search() {
+    console.log(this.SearchValue)
+
+    if (this.SearchValue.length == 0) {
+      this.getData()
+      return
+    }
+
+    const url = "http://localhost:5000/api/articles/";
+
+    const call = this.http.get<feedItem[]>(url, {params: {searchTerm: this.SearchValue, pageSize:20}});
+    const result = await firstValueFrom<feedItem[]>(call);
+    this.service.feed = result;
   }
 }
 

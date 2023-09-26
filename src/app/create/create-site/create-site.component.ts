@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
   selector: 'app-create-site',
   //templateUrl: './create-site.component.html',
   template: `
+    <div style="height: 80%; width: 100%;">
     <ion-content>
 
       <h1>add Name on article</h1>
@@ -23,6 +24,7 @@ import {Router} from "@angular/router";
       <ion-button (click)="addArticleDB()">Confirm</ion-button>
 
     </ion-content>
+    </div>
   `,
   styleUrls: ['./create-site.component.scss'],
 })

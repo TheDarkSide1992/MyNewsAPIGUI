@@ -10,14 +10,17 @@ import {CreateSiteComponent} from "../create/create-site/create-site.component";
 
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        HttpClientModule,
-        IonicModule,
-        HomePageRoutingModule,
-        ReactiveFormsModule
-    ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    HttpClientModule,
+    IonicModule,
+    HomePageRoutingModule,
+    ReactiveFormsModule
+  ],
+  exports: [
+    HomePage
+  ],
   declarations: [HomePage, MyNewComponent, CreateSiteComponent]
 })
 export class HomePageModule {}
